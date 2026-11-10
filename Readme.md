@@ -84,7 +84,7 @@ Open the notebook `<bank_term_deposite_prediction>.ipynb` to see the full analys
 
 ```
 app.py                  Streamlit dashboard
-<bank_term_deposite_prediction>.ipynb   Full analysis
+<bank-term-deposit-prediction>.ipynb   Full analysis
 final_model.joblib      Saved pipeline (preprocessing + tuned LightGBM)
 model_info.joblib       Cutoff and column list
 bank-additional-full.csv  Dataset (UCI Bank Marketing)
