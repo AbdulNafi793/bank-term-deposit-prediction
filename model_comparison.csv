@@ -1,0 +1,11 @@
+Model,Recall (yes),Precision (yes),F1 (yes),ROC-AUC,Time (s)
+LightGBM (tuned),0.659,0.394,0.493,0.816,
+LightGBM,0.652,0.402,0.497,0.815,1.065
+Random Forest,0.638,0.414,0.502,0.814,2.493
+Random Forest (tuned),0.641,0.405,0.496,0.813,
+Logistic Regression (balanced),0.645,0.368,0.469,0.801,0.943
+Logistic Regression,0.219,0.688,0.332,0.801,0.711
+AdaBoost,0.205,0.714,0.318,0.8,19.003
+Decision Tree,0.614,0.414,0.495,0.792,0.505
+Naive Bayes,0.597,0.337,0.431,0.776,0.529
+KNN,0.306,0.59,0.403,0.745,10.959
