@@ -2,7 +2,7 @@
 
 A machine learning project that predicts which bank clients are likely to subscribe to a term deposit after a marketing phone call, so a call team can focus on the clients most worth contacting.
 
-**Live demo:** https://bank-term-deposit-prediction-41k.streamlit.app/ (if the app has been idle, it may take a moment to wake up)
+**Live demo:** https://bank-term-deposit-prediction-41k.streamlit.app
 
 ## Summary
 
