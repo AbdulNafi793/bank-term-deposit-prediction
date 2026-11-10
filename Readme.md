@@ -2,9 +2,7 @@
 
 A machine learning project that predicts which bank clients are likely to subscribe to a term deposit after a marketing phone call, so a call team can focus on the clients most worth contacting.
 
-**Live demo:** <paste your Streamlit link here>
-
-![App result: client above the cutoff](app_yes.png)
+**Live demo:** https://bank-term-deposit-prediction-41k.streamlit.app/ (if the app has been idle, it may take a moment to wake up)
 
 ## Summary
 
@@ -13,6 +11,16 @@ A machine learning project that predicts which bank clients are likely to subscr
 - **Best model:** tuned LightGBM, test ROC-AUC **0.816**.
 - **Decision cutoff:** 0.45, which finds 68% of subscribers with 36% of calls succeeding (11% when calling at random).
 - **App:** a Streamlit dashboard where you enter a client's details and get a score and a call / low-priority recommendation.
+
+## App preview
+
+**A client above the cutoff (worth calling):**
+
+![App result: client above the cutoff](app_yes.png)
+
+**A client below the cutoff (low priority):**
+
+![App result: client below the cutoff](app_no.png)
 
 ## What I did
 
@@ -23,7 +31,7 @@ A machine learning project that predicts which bank clients are likely to subscr
 5. **Tuning.** `GridSearchCV` with stratified 5-fold cross-validation on ROC-AUC (Random Forest CV 0.796, LightGBM CV 0.798).
 6. **Threshold tuning.** Chose the cutoff from cross-validated predictions on the training set, so the test set stayed untouched.
 7. **Interpretation.** Feature importance and a feature-removal experiment.
-8. **Deployment.** Saved the pipeline with joblib and built a Streamlit dashboard.
+8. **Deployment.** Saved the pipeline with joblib and built a Streamlit dashboard, deployed on Streamlit Community Cloud.
 
 ## Results
 
@@ -31,7 +39,7 @@ Test set (8,238 clients), default 0.5 cutoff:
 
 | Model | ROC-AUC | Recall (yes) | Precision (yes) | F1 (yes) |
 |---|---|---|---|---|
-| LightGBM (tuned) | **0.816** | 0.66 | 0.39 | 0.49 |
+| LightGBM (tuned) | **0.816** | 0.659 | 0.394 | 0.493 |
 | LightGBM | 0.815 | 0.652 | 0.402 | 0.497 |
 | Random Forest | 0.814 | 0.638 | 0.414 | 0.502 |
 | Random Forest (tuned) | 0.813 | 0.641 | 0.405 | 0.496 |
@@ -42,6 +50,8 @@ Test set (8,238 clients), default 0.5 cutoff:
 | SVM | 0.783 | 0.633 | 0.413 | 0.500 |
 | Naive Bayes | 0.776 | 0.597 | 0.337 | 0.431 |
 | KNN | 0.745 | 0.306 | 0.592 | 0.403 |
+
+*SVM was evaluated in an earlier run and is not part of `model_comparison.csv`.*
 
 ROC-AUC is the main comparison metric because it does not depend on the cutoff. Accuracy is misleading here: always predicting "no" is already about 89% accurate. SVM took about 159 seconds to train with no gain, so it was dropped from tuning.
 
@@ -73,23 +83,28 @@ Lowering the cutoff trades precision for recall. On the training set, F1 is high
 
 ## Run it locally
 
+Python 3.11 or newer is recommended.
+
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
-Open the notebook `<bank_term_deposite_prediction>.ipynb` to see the full analysis.
+Open the notebook `bank_term_deposite_prediction.ipynb` to see the full analysis.
 
 ## Project structure
 
 ```
-app.py                  Streamlit dashboard
-<bank-term-deposit-prediction>.ipynb   Full analysis
-final_model.joblib      Saved pipeline (preprocessing + tuned LightGBM)
-model_info.joblib       Cutoff and column list
-bank-additional-full.csv  Dataset (UCI Bank Marketing)
-model_comparison.csv    Model comparison table
-requirements.txt        Library versions
+app.py                                  Streamlit dashboard
+bank_term_deposite_prediction.ipynb     Full analysis
+final_model.joblib                      Saved pipeline (preprocessing + tuned LightGBM)
+model_info.joblib                       Cutoff and column list
+bank-additional-full.csv                Dataset (UCI Bank Marketing)
+model_comparison.csv                    Model comparison table
+feature_importance.png                  Feature importance chart
+app_yes.png, app_no.png                 App screenshots
+requirements.txt                        Library versions
+.streamlit/config.toml                  Light theme for the app
 ```
 
 ## Tech stack
